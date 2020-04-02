@@ -11,6 +11,6 @@ public class HealthController
 	@GetMapping("/health")
 	public RestResponseStatus getStatus() 
 	{
-		return new RestResponseStatus(HttpStatus.OK, "UP !!!");
+		return new RestResponseStatus(HttpStatus.OK, "UP & Running !!!");
     }
 }
