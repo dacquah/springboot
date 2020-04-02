@@ -1,0 +1,40 @@
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  annotations:
+    openshift.io/generated-by: OpenShiftWebConsole
+  creationTimestamp: '2020-04-02T12:59:55Z'
+  labels:
+    app: ruby-ex
+  name: ruby-ex
+  namespace: ruby
+  resourceVersion: '984749246'
+  selfLink: /apis/build.openshift.io/v1/namespaces/ruby/buildconfigs/ruby-ex
+  uid: d9bb2d63-74e1-11ea-b88d-125b034d2f46
+spec:
+  nodeSelector: null
+  output:
+    to:
+      kind: ImageStreamTag
+      name: 'ruby-ex:latest'
+  postCommit: {}
+  resources: {}
+  runPolicy: Serial
+  source:
+    git:
+      ref: master
+      uri: 'https://github.com/dacquah/ruby-ex.git'
+    type: Git
+  strategy:
+    sourceStrategy:
+      from:
+        kind: ImageStreamTag
+        name: 'ruby:2.5'
+        namespace: openshift
+    type: Source
+  triggers:
+    - generic:
+        secret: 5be13b1b6166152d
+      type: Generic
+status:
+  lastVersion: 3

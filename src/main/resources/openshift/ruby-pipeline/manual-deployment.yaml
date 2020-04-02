@@ -1,0 +1,88 @@
+apiVersion: apps.openshift.io/v1
+kind: DeploymentConfig
+metadata:
+  annotations:
+    openshift.io/generated-by: OpenShiftWebConsole
+  creationTimestamp: '2020-04-02T12:59:55Z'
+  generation: 4
+  labels:
+    app: ruby-ex
+  name: ruby-ex
+  namespace: ruby
+  resourceVersion: '984749664'
+  selfLink: /apis/apps.openshift.io/v1/namespaces/ruby/deploymentconfigs/ruby-ex
+  uid: d9b9e804-74e1-11ea-8904-12b5519f9b58
+spec:
+  replicas: 1
+  selector:
+    deploymentconfig: ruby-ex
+  strategy:
+    activeDeadlineSeconds: 21600
+    resources: {}
+    rollingParams:
+      intervalSeconds: 1
+      maxSurge: 25%
+      maxUnavailable: 25%
+      timeoutSeconds: 600
+      updatePeriodSeconds: 1
+    type: Rolling
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: ruby-ex
+        deploymentconfig: ruby-ex
+    spec:
+      containers:
+        - image: >-
+            docker-registry.default.svc:5000/ruby/ruby-ex@sha256:88e9bc7d718e7c62788543476716764f5275f1a6f7301babcfc8e17f45bb6766
+          imagePullPolicy: Always
+          name: ruby-ex
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+  test: false
+  triggers:
+    - imageChangeParams:
+        containerNames:
+          - ruby-ex
+        from:
+          kind: ImageStreamTag
+          name: 'ruby-ex:latest'
+          namespace: ruby
+        lastTriggeredImage: >-
+          docker-registry.default.svc:5000/ruby/ruby-ex@sha256:88e9bc7d718e7c62788543476716764f5275f1a6f7301babcfc8e17f45bb6766
+      type: ImageChange
+    - type: ConfigChange
+status:
+  availableReplicas: 1
+  conditions:
+    - lastTransitionTime: '2020-04-02T13:13:35Z'
+      lastUpdateTime: '2020-04-02T13:13:35Z'
+      message: Deployment config has minimum availability.
+      status: 'True'
+      type: Available
+    - lastTransitionTime: '2020-04-02T13:56:24Z'
+      lastUpdateTime: '2020-04-02T13:56:26Z'
+      message: replication controller "ruby-ex-3" successfully rolled out
+      reason: NewReplicationControllerAvailable
+      status: 'True'
+      type: Progressing
+  details:
+    causes:
+      - type: Manual
+    message: manual change
+  latestVersion: 3
+  observedGeneration: 4
+  readyReplicas: 1
+  replicas: 1
+  unavailableReplicas: 0
+  updatedReplicas: 1

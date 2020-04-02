@@ -1,0 +1,122 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    kubernetes.io/limit-ranger: >-
+      LimitRanger plugin set: cpu, memory request for container ruby-ex; cpu,
+      memory limit for container ruby-ex
+    openshift.io/deployment-config.latest-version: '3'
+    openshift.io/deployment-config.name: ruby-ex
+    openshift.io/deployment.name: ruby-ex-3
+    openshift.io/scc: restricted
+  creationTimestamp: '2020-04-02T13:56:18Z'
+  generateName: ruby-ex-3-
+  labels:
+    app: ruby-ex
+    deployment: ruby-ex-3
+    deploymentconfig: ruby-ex
+  name: ruby-ex-3-rhbxb
+  namespace: ruby
+  ownerReferences:
+    - apiVersion: v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: ReplicationController
+      name: ruby-ex-3
+      uid: b76e055f-74e9-11ea-b88d-125b034d2f46
+  resourceVersion: '984749616'
+  selfLink: /api/v1/namespaces/ruby/pods/ruby-ex-3-rhbxb
+  uid: b9c014ba-74e9-11ea-b5c3-123713f594ec
+spec:
+  containers:
+    - image: >-
+        docker-registry.default.svc:5000/ruby/ruby-ex@sha256:88e9bc7d718e7c62788543476716764f5275f1a6f7301babcfc8e17f45bb6766
+      imagePullPolicy: Always
+      name: ruby-ex
+      ports:
+        - containerPort: 8080
+          protocol: TCP
+      resources:
+        limits:
+          cpu: '1'
+          memory: 512Mi
+        requests:
+          cpu: 30m
+          memory: 409Mi
+      securityContext:
+        capabilities:
+          drop:
+            - KILL
+            - MKNOD
+            - NET_RAW
+            - SETGID
+            - SETUID
+        runAsUser: 1005440000
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: default-token-9zgkv
+          readOnly: true
+  dnsPolicy: ClusterFirst
+  imagePullSecrets:
+    - name: default-dockercfg-rbkcj
+  nodeName: ip-172-31-49-252.ec2.internal
+  nodeSelector:
+    type: compute
+  priority: 0
+  restartPolicy: Always
+  schedulerName: default-scheduler
+  securityContext:
+    fsGroup: 1005440000
+    seLinuxOptions:
+      level: 's0:c74,c19'
+  serviceAccount: default
+  serviceAccountName: default
+  terminationGracePeriodSeconds: 30
+  tolerations:
+    - effect: NoSchedule
+      key: node.kubernetes.io/memory-pressure
+      operator: Exists
+  volumes:
+    - name: default-token-9zgkv
+      secret:
+        defaultMode: 420
+        secretName: default-token-9zgkv
+status:
+  conditions:
+    - lastProbeTime: null
+      lastTransitionTime: '2020-04-02T13:56:18Z'
+      status: 'True'
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: '2020-04-02T13:56:23Z'
+      status: 'True'
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: null
+      status: 'True'
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: '2020-04-02T13:56:18Z'
+      status: 'True'
+      type: PodScheduled
+  containerStatuses:
+    - containerID: >-
+        docker://c99e3d88c8f2f91e77a72cb496300e1081fecc01873af403f9badbb62037b25f
+      image: >-
+        docker-registry.default.svc:5000/ruby/ruby-ex@sha256:88e9bc7d718e7c62788543476716764f5275f1a6f7301babcfc8e17f45bb6766
+      imageID: >-
+        docker-pullable://docker-registry.default.svc:5000/ruby/ruby-ex@sha256:88e9bc7d718e7c62788543476716764f5275f1a6f7301babcfc8e17f45bb6766
+      lastState: {}
+      name: ruby-ex
+      ready: true
+      restartCount: 0
+      state:
+        running:
+          startedAt: '2020-04-02T13:56:22Z'
+  hostIP: 172.31.49.252
+  phase: Running
+  podIP: 10.128.29.65
+  qosClass: Burstable
+  startTime: '2020-04-02T13:56:18Z'

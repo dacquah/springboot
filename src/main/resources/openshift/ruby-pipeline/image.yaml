@@ -1,0 +1,40 @@
+apiVersion: image.openshift.io/v1
+kind: ImageStream
+metadata:
+  annotations:
+    openshift.io/generated-by: OpenShiftWebConsole
+  creationTimestamp: '2020-04-02T12:59:55Z'
+  generation: 1
+  labels:
+    app: ruby-ex
+  name: ruby-ex
+  namespace: ruby
+  resourceVersion: '984749452'
+  selfLink: /apis/image.openshift.io/v1/namespaces/ruby/imagestreams/ruby-ex
+  uid: d9b8cabe-74e1-11ea-b5c3-123713f594ec
+spec:
+  lookupPolicy:
+    local: false
+status:
+  dockerImageRepository: 'docker-registry.default.svc:5000/ruby/ruby-ex'
+  tags:
+    - items:
+        - created: '2020-04-02T13:56:12Z'
+          dockerImageReference: >-
+            docker-registry.default.svc:5000/ruby/ruby-ex@sha256:88e9bc7d718e7c62788543476716764f5275f1a6f7301babcfc8e17f45bb6766
+          generation: 1
+          image: >-
+            sha256:88e9bc7d718e7c62788543476716764f5275f1a6f7301babcfc8e17f45bb6766
+        - created: '2020-04-02T13:53:23Z'
+          dockerImageReference: >-
+            docker-registry.default.svc:5000/ruby/ruby-ex@sha256:da5a445b83413cdcf597dd51bcf6e55069d9ed2241fac8f6d27b367b9e71a28e
+          generation: 1
+          image: >-
+            sha256:da5a445b83413cdcf597dd51bcf6e55069d9ed2241fac8f6d27b367b9e71a28e
+        - created: '2020-04-02T13:13:25Z'
+          dockerImageReference: >-
+            docker-registry.default.svc:5000/ruby/ruby-ex@sha256:c49f19ab75257e0d581e935dc874859522df235872a648d1a638e9e27b101c6f
+          generation: 1
+          image: >-
+            sha256:c49f19ab75257e0d581e935dc874859522df235872a648d1a638e9e27b101c6f
+      tag: latest

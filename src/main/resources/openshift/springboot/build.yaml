@@ -1,0 +1,85 @@
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  annotations:
+    pipeline.alpha.openshift.io/uses: '[{"name": "springboot", "namespace": "", "kind": "DeploymentConfig"}]'
+  creationTimestamp: '2020-04-02T15:31:33Z'
+  labels:
+    app: springboot
+  name: springboot
+  namespace: springboot
+  resourceVersion: '984840742'
+  selfLink: /apis/build.openshift.io/v1/namespaces/springboot/buildconfigs/springboot
+  uid: 08af2069-74f7-11ea-8904-12b5519f9b58
+spec:
+  nodeSelector: {}
+  output: {}
+  postCommit: {}
+  resources: {}
+  runPolicy: Serial
+  source:
+    type: None
+  strategy:
+    jenkinsPipelineStrategy:
+      jenkinsfile: |-
+        node {
+          stage('buildImage'){
+            openshiftBuild(buildConfig: 'springboot', showBuildLogs: 'true')
+          }
+          stage('deployApplication'){
+            openshiftDeploy(deploymentConfig: 'springboot')
+          }
+        }
+    type: JenkinsPipeline
+  triggers:
+    - github:
+        secret: a04aabf8d0002f77
+      type: GitHub
+status:
+  lastVersion: 7
+  
+  
+  
+  
+  
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  annotations:
+    openshift.io/generated-by: OpenShiftWebConsole
+  creationTimestamp: '2020-04-02T12:59:55Z'
+  labels:
+    app: springboot
+  name: springboot
+  namespace: springboot
+  resourceVersion: '984749246'
+  selfLink: /apis/build.openshift.io/v1/namespaces/springboot/buildconfigs/springboot
+  uid: d9bb2d63-74e1-11ea-b88d-125b034d2f46
+spec:
+  nodeSelector: null
+  output:
+    to:
+      kind: ImageStreamTag
+      name: 'springboot:latest'
+  postCommit: {}
+  resources: {}
+  runPolicy: Serial
+  source:
+    git:
+      ref: master
+      uri: 'https://github.com/dacquah/springboot.git'
+    type: Git
+  strategy:
+    sourceStrategy:
+      from:
+        kind: ImageStreamTag
+        name: 'ruby:2.5'
+        namespace: openshift
+    type: Source
+  triggers:
+    - generic:
+        secret: 5be13b1b6166152d
+      type: Generic
+status:
+  lastVersion: 3
+  

@@ -1,0 +1,39 @@
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  annotations:
+    pipeline.alpha.openshift.io/uses: '[{"name": "ruby-ex", "namespace": "", "kind": "DeploymentConfig"}]'
+  creationTimestamp: '2020-04-02T13:06:01Z'
+  labels:
+    app: ruby-ex
+  name: ruby-ex-pipeline
+  namespace: ruby
+  resourceVersion: '984749242'
+  selfLink: /apis/build.openshift.io/v1/namespaces/ruby/buildconfigs/ruby-ex-pipeline
+  uid: b38bb89b-74e2-11ea-b88d-125b034d2f46
+spec:
+  nodeSelector: {}
+  output: {}
+  postCommit: {}
+  resources: {}
+  runPolicy: Serial
+  source:
+    type: None
+  strategy:
+    jenkinsPipelineStrategy:
+      jenkinsfile: |-
+        node {
+          stage('buildImage'){
+            openshiftBuild(buildConfig: 'ruby-ex', showBuildLogs: 'true')
+          }
+          stage('deployApplication'){
+            openshiftDeploy(deploymentConfig: 'ruby-ex')
+          }
+        }
+    type: JenkinsPipeline
+  triggers:
+    - github:
+        secret: a04aabf8d0002f77
+      type: GitHub
+status:
+  lastVersion: 3

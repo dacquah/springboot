@@ -1,0 +1,29 @@
+apiVersion: image.openshift.io/v1
+kind: ImageStream
+metadata:
+  creationTimestamp: '2020-04-02T15:31:33Z'
+  generation: 1
+  labels:
+    app: springboot
+    application: springboot
+    template: openjdk-web-basic-s2i
+    xpaas: 1.4.17
+  name: springboot
+  namespace: springboot
+  resourceVersion: '984822301'
+  selfLink: /apis/image.openshift.io/v1/namespaces/springboot/imagestreams/springboot
+  uid: 08944e8b-74f7-11ea-8904-12b5519f9b58
+spec:
+  lookupPolicy:
+    local: false
+status:
+  dockerImageRepository: 'docker-registry.default.svc:5000/springboot/springboot'
+  tags:
+    - items:
+        - created: '2020-04-02T15:32:35Z'
+          dockerImageReference: >-
+            docker-registry.default.svc:5000/springboot/springboot@sha256:f10eba775f2467f3f7f3409789b7955d4bc20f77f089d4d11bbc714ee7e7e879
+          generation: 1
+          image: >-
+            sha256:f10eba775f2467f3f7f3409789b7955d4bc20f77f089d4d11bbc714ee7e7e879
+      tag: latest
