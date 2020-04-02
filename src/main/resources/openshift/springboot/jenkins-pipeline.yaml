@@ -1,39 +1,38 @@
-apiVersion: build.openshift.io/v1
+apiVersion: v1
 kind: BuildConfig
 metadata:
+  name: springboot-pipepline
+  labels:
+    name: springboot-pipepline
   annotations:
     pipeline.alpha.openshift.io/uses: '[{"name": "springboot", "namespace": "", "kind": "DeploymentConfig"}]'
-  creationTimestamp: '2020-04-02T13:06:01Z'
-  labels:
-    app: springboot
-  name: springboot-pipeline
-  namespace: ruby
-  resourceVersion: '984749242'
-  selfLink: /apis/build.openshift.io/v1/namespaces/ruby/buildconfigs/springboot-pipeline
-  uid: b38bb89b-74e2-11ea-b88d-125b034d2f46
 spec:
-  nodeSelector: {}
-  output: {}
-  postCommit: {}
-  resources: {}
+  triggers:
+    - 
+      type: GitHub
+      github:
+        secret: 81dedc21cc8f7b72
+    - 
+      type: Generic
+      generic:
+        secret: 81dedc21cc8f7b72  
   runPolicy: Serial
   source:
-    type: None
+    type: None  
   strategy:
+    type: JenkinsPipeline
     jenkinsPipelineStrategy:
       jenkinsfile: |-
         node {
-          stage('buildImage'){
+          stage('build'){
             openshiftBuild(buildConfig: 'springboot', showBuildLogs: 'true')
           }
-          stage('deployApplication'){
+          stage('deploy'){
             openshiftDeploy(deploymentConfig: 'springboot')
+            openshiftScale(deploymentConfig: 'springboot', replicaCount: '3')
           }
         }
-    type: JenkinsPipeline
-  triggers:
-    - github:
-        secret: a04aabf8d0002f77
-      type: GitHub
-status:
-  lastVersion: 1
+  output:
+  resources:
+  postCommit:
+  
